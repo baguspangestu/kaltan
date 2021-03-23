@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kalkulator Akuntansi</title>
+  <link rel="stylesheet" href="style.css">
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/8.3.1/firebase-app.js"></script>
@@ -23,16 +24,18 @@
       to avoid connecting the SDK to running emulators.
     -->
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
 </head>
 
 <body>
-  <p>Hello World</p>
-  <p id="load">Firebase SDK Loading&hellip;</p>
+  <div id="root"></div>
 
+  <!-- <p id="load">Firebase SDK Loading&hellip;</p> -->
+
+  <script src="jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const loadEl = document.querySelector('#load');
+      // const loadEl = document.querySelector('#load');
       // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
       // // The Firebase SDK is initialized and available here!
       //
@@ -61,10 +64,10 @@
           'remoteConfig',
           'performance',
         ].filter(feature => typeof app[feature] === 'function');
-        loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        // loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
       } catch (e) {
         console.error(e);
-        loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        // loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
       }
     });
   </script>

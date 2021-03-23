@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+body {
+  font-family: 'Merienda', cursive;
+  background-color: gray;
+}
+
+table {
+  box-shadow: 0px 0px 10px #000000;
+  background-color: white;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th,
+td {
+  padding: 5px 10px 5px 10px;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+.b-left {
+  border-left: 1px solid black;
+}
+
+.b-top {
+  border-top: 1px solid black;
+}
+
+.b-right {
+  border-right: 1px solid black;
+}
+
+.b-bottom{
+  border-bottom: 1px solid black;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ta-left {
+  text-align: left;
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.f-right {
+  float: right;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
