@@ -133,7 +133,11 @@ $(function () {
     return x;
   }
 
-  function run() {
+  function submit() {
+
+  }
+
+  function start() {
     const a = obj.data;
     const b = obj.type;
     const c = tbls(a, b)
@@ -163,7 +167,7 @@ $(function () {
         </tr>`;
 
     for (let i = 0; i < c[0].length; i++) {
-      x += `<tr class="ta-left fs-12">`;
+      x += '<tr class="ta-left fs-12">';
 
       // Aktiva
       if (c[0][i][2]) {
@@ -190,15 +194,15 @@ $(function () {
           <td>${c[1][i][1]}</td>
           <td></td>`;
       }
-      x += `</tr>`;
+      x += '</tr>';
     }
 
-    x += `</table>`;
+    x += '</table>';
 
     console.log(c);
     return x;
   }
 
   const root = $('#root');
-  root.html(run());
+  root.html(start());
 });

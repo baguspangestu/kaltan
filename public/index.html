@@ -28,6 +28,35 @@
 </head>
 
 <body>
+  <input id="tid" value="1" type="hidden" />
+  <table id="tabForm" class="center">
+    <tr>
+      <th colspan="4" style="font-size: 48px;">Akuntansi</th>
+    </tr>
+    <tr>
+      <th>Items</th>
+      <th>Value</th>
+      <th>Jenis</th>
+      <th><button>+</button></th>
+    </tr>
+    <tr>
+      <td><input type='text' placeholder='...' /></td>
+      <td><input type='number' placeholder='0' /></td>
+      <td>
+        <select>
+          <option value="0">Aktiva Lancar</option>
+          <option value="1">Investasi Jangka Panjang</option>
+          <option value="2">Aktiva Tetap Berwujud</option>
+          <option value="3">Aktiva Tak Berwujud</option>
+          <option value="4">Utang Jangka Pendek</option>
+          <option value="5">Utang Jangka Panjang</option>
+          <option value="6">Modal</option>
+        </select>
+      </td>
+      <td><a href="#" style="color:red;">✗</a></td>
+    </tr>
+  </table>
+  <br>
   <div id="root"></div>
 
   <!-- <p id="load">Firebase SDK Loading&hellip;</p> -->
