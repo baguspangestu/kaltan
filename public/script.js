@@ -153,7 +153,7 @@ $(function () {
           <th></th>
           <th></th>
         </tr>
-        <tr>
+        <tr class="ta-left fs-12">
           <td>&nbsp;</td>
           <td></td>
           <td class="b-right"></td>
