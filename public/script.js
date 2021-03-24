@@ -1,8 +1,22 @@
 $(function () {
-  const obj = {
+
+  const con = {
+    periode: ['Per', 'Untuk periode yang berakhir'],
+    type: [
+      'Aktiva Lancar',
+      'Investasi Jangka Panjang',
+      'Aktiva Tetap Berwujud',
+      'Aktiva Tak Berwujud',
+      'Utang Jangka Pendek',
+      'Utang Jangka Panjang',
+      'Modal'
+    ]
+  }
+
+  const dat = {
     company: 'PD TELUK INDAH',
-    periode: 'Untuk periode yang berakhir tanggal 31 Desember 2002',
-    data: [
+    periode: [1, "2002-12-31"],
+    data: [ // Data Test
       ['Tanah (land)', 2, 28000000],
       ['Kas (cash)', 0, 19500000],
       ['Persediaan barang dagang (merchandise inventory)', 0, 22250000],
@@ -26,15 +40,6 @@ $(function () {
       ['Wesel bayar (notes payable)', 4, 10700000],
       ['Perlengkapan (suplies)', 0, 2000000],
       ['Wesel tagih (notes receivable)', 0, 7500000],
-    ],
-    type: [
-      'Aktiva Lancar',
-      'Investasi Jangka Panjang',
-      'Aktiva Tetap Berwujud',
-      'Aktiva Tak Berwujud',
-      'Utang Jangka Pendek',
-      'Utang Jangka Panjang',
-      'Modal'
     ]
   };
 
@@ -133,21 +138,39 @@ $(function () {
     return x;
   }
 
-  function submit() {
+  function dateFormat(a) {
+    let x = '';
+    if (a) {
+      const d = new Date(a);
+      const ye = new Intl.DateTimeFormat('id', {
+        year: 'numeric'
+      }).format(d);
+      const mo = new Intl.DateTimeFormat('id', {
+        month: 'long'
+      }).format(d);
+      const da = new Intl.DateTimeFormat('id', {
+        day: '2-digit'
+      }).format(d);
+      x = da + ' ' + mo + ' ' + ye;
+    }
 
+    return x;
   }
 
-  function start() {
-    const a = obj.data;
-    const b = obj.type;
+  function result() {
+    const a = dat.data;
+    const b = con.type;
     const c = tbls(a, b)
+
+    const com = dat.company;
+    const per = con.periode[dat.periode[0]] + ' ' + dateFormat(dat.periode[1]);
 
     let x;
 
     x = `
-      <table class="border center">
+      <table id="hasil" class="border center">
         <tr class="b-bottom fs-16">
-          <th colspan="6">${obj.company}<br>NERACA<br>${obj.periode}</th>
+          <th colspan="6">${com}<br>NERACA<br>${per}</th>
         </tr>
         <tr class="ta-left fs-16">
           <th>AKTIVA</th>
@@ -199,10 +222,126 @@ $(function () {
 
     x += '</table>';
 
-    console.log(c);
     return x;
   }
 
-  const root = $('#root');
-  root.html(start());
+  function select(a) {
+    let x = '';
+
+    for (let i = 0; i < a.length; i++) {
+      x += '<option value="' + i + '">' + a[i] + '</option>';
+    }
+
+    return x;
+  }
+
+  function element() {
+    const x = `
+    <tr class="inputForm">
+      <td><input name="items" type="text" placeholder="Ex: Kas (cash)" required /></td>
+      <td><input name="value" type="number" placeholder="Ex: 19500000" required /></td>
+      <td>
+        <select name="jenis" required>
+          <option selected disabled>-Pilih-</option>
+          ${select(con.type)}
+        </select>
+      </td>
+      <td align="center">(<a href="javascript:void(0);" style="color:red;" class="delForm">✗</a>)</td>
+    </tr>`;
+
+    return x;
+  }
+
+  function start() {
+    const x = `
+      <table id="quest" class="border center">
+        <tbody id="tabForm">
+          <tr>
+            <th colspan="4" style="font-size: 48px;">Akuntansi</th>
+          </tr>
+          <tr class="b-top ta-left">
+            <td colspan="4">
+              <b>Nama Perusahaan :</b>
+              <input name="company" type="text" placeholder="Ex: PD TELUK INDAH" required />
+            </td>
+          </tr>
+          <tr class="b-bottom ta-left">
+            <td colspan="4">
+              <b>Periode :</b>
+              <select name="periode" required>
+                <option value="0">Per</option>
+                <option value="1">Untuk periode yang berakhir</option>
+              </select>
+              <input name="date" type="date" required />
+            </td>
+          </tr>
+          <tr class="ta-left">
+            <th>Items</th>
+            <th>Value</th>
+            <th>Jenis</th>
+            <th align="center">
+              <button class="addForm">+</button>
+            </th>
+          </tr>
+          ${element()}
+          <tr class="b-top">
+            <td colspan="4">
+              <button class="pancal">Pancal</button>
+              [<a href="javascript:void(0);" class="reset">Reset</a>]
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p align="center" class="fs-12">
+        Version: 0.01<br>
+        Kalkulator Akuntansi<br>
+        &copy; 2021 Bagus Pangestu
+      </p>`;
+    return x;
+  }
+
+  function addElement() {
+    const a = $('#tabForm > tr');
+    a.eq(a.length - 1).before(element());
+  }
+
+  $('#root').html(start());
+
+  $('#tabForm').click(function (e) {
+    if ($(e.target).hasClass('addForm')) {
+      addElement();
+    }
+
+    if ($(e.target).hasClass('delForm')) {
+      $(e.target).parent().parent().remove();
+    }
+
+    if ($(e.target).hasClass('pancal')) {
+      dat.company = $('[name=company]').val();
+      dat.periode = [parseInt($('[name=periode]').val()), $('[name=date]').val()];
+
+      dat.data = [];
+
+      $('#tabForm > .inputForm').each(function (i) {
+        let a = $('[name=items]').eq(i).val();
+        let b = $('[name=jenis]').eq(i).val();
+        let c = $('[name=value]').eq(i).val();
+
+        a = a ? a : 'item ' + (i + 1);
+        c = c ? c : 0;
+
+        if (b) dat.data.push([a, parseInt(b), c]);
+      });
+
+      console.log(dat);
+
+      if ($('#root > #hasil')) $('#root > #hasil').remove();
+      $('#root > #quest').after(result());
+    }
+
+    if ($(e.target).hasClass('reset')) {
+      location.reload();
+    }
+  });
+
 });
