@@ -47,13 +47,9 @@ $(function () {
 
   // Format Uang Rupiah
   function duit(a, b) {
-    let x = '';
+    let x = 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
 
-    if (b.search("Akum") >= 0) {
-      x += '(Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-)';
-    } else {
-      x += 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
-    }
+    if (akum(b)) x = '(' + x + ')';
 
     return x;
   }
@@ -80,11 +76,12 @@ $(function () {
 
     for (let i = 0; i < b[c].length; i++) {
       const s = a[b[c][i]][0];
+      const n = parseInt(a[b[c][i]][2]);
 
-      if (s.search("Akum") >= 0) {
-        x -= parseInt([a[b[c][i]][2]]);
+      if (akum(s)) {
+        x -= n;
       } else {
-        x += parseInt([a[b[c][i]][2]]);
+        x += n;
       }
     }
 
@@ -176,6 +173,11 @@ $(function () {
     }
 
     return x;
+  }
+
+  // Akumulasi detector
+  function akum(a) {
+    return (a.search("Akum") >= 0) ? true : false;
   }
 
   function result() {
@@ -313,7 +315,7 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
-              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b> pada Akumulasi Penyewaan</span>
+              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b> Pada Akumulasi Penyewaan</span>
             </td>
           </tr>
         </tbody>
