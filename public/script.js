@@ -299,7 +299,7 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
-              <span class="f-right fs-12" style="color: green;"><b>[Bug]</b> Harusnya Akumulasi Penyewaan dikurang, bukan ditambah</span>
+              <span class="f-right fs-12" style="color: green;"><b>[Bug Ditemukan!]</b> Harusnya Akumulasi Penyewaan dikurang, bukan ditambah</span>
             </td>
           </tr>
         </tbody>
