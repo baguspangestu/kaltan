@@ -46,8 +46,16 @@ $(function () {
   };
 
   // Format Uang Rupiah
-  function duit(a) {
-    return 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
+  function duit(a, b) {
+    let x = '';
+
+    if (b.search("Akum") >= 0) {
+      x += '(Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-)';
+    } else {
+      x += 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
+    }
+
+    return x;
   }
 
   // Urutkan Data Sesuai Jenisnya
@@ -71,7 +79,13 @@ $(function () {
     let x = 0;
 
     for (let i = 0; i < b[c].length; i++) {
-      x += parseInt([a[b[c][i]][2]]);
+      const s = a[b[c][i]][0];
+
+      if (s.search("Akum") >= 0) {
+        x -= parseInt([a[b[c][i]][2]]);
+      } else {
+        x += parseInt([a[b[c][i]][2]]);
+      }
     }
 
     return x;
@@ -94,13 +108,13 @@ $(function () {
           if (j === 0) {
             m = b[i] + ' :';
             n = '';
-            o = duit(math(a, c, i));
+            o = duit(math(a, c, i), '');
             p[0] += math(a, c, i);
             x[0].push([m, n, o]);
           }
 
           m = a[c[i][j]][0];
-          n = duit(a[c[i][j]][2]);
+          n = duit(a[c[i][j]][2], a[c[i][j]][0]);
           o = '';
           x[0].push([m, n, o]);
 
@@ -111,13 +125,13 @@ $(function () {
           if (j === 0) {
             m = b[i] + ' :';
             n = '';
-            o = duit(math(a, c, i));
+            o = duit(math(a, c, i), '');
             p[1] += math(a, c, i);
             x[1].push([m, n, o]);
           }
 
           m = a[c[i][j]][0];
-          n = duit(a[c[i][j]][2]);
+          n = duit(a[c[i][j]][2], a[c[i][j]][0]);
           o = '';
           x[1].push([m, n, o]);
 
@@ -138,8 +152,8 @@ $(function () {
       }
     }
 
-    x[0].push(['Total Aktiva :', '', duit(p[0])]);
-    x[1].push(['Total Utang & Modal :', '', duit(p[1])]);
+    x[0].push(['Total Aktiva :', '', duit(p[0], '')]);
+    x[1].push(['Total Utang & Modal :', '', duit(p[1], '')]);
 
     return x;
   }
@@ -299,14 +313,14 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
-              <span class="f-right fs-12" style="color: green;"><b>[Bug Ditemukan!]</b> Harusnya Akumulasi Penyewaan dikurang, bukan ditambah</span>
+              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b> pada Akumulasi Penyewaan</span>
             </td>
           </tr>
         </tbody>
       </table>
       ${result()}
       <p align="center" class="fs-12">
-        Version: 0.01<br>
+        Version: 0.02<br>
         Kalkulator Akuntansi<br>
         &copy; 2021 Bagus Pangestu
       </p>`;
