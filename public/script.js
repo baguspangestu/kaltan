@@ -315,7 +315,7 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
-              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b> Pada Akumulasi Penyewaan</span>
+              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b></span>
             </td>
           </tr>
         </tbody>
