@@ -1,6 +1,7 @@
 $(function () {
 
-  const con = {
+  // Konfigurasi
+  const config = {
     periode: ['Per', 'Untuk periode yang berakhir'],
     type: [
       'Aktiva Lancar',
@@ -13,10 +14,11 @@ $(function () {
     ]
   }
 
-  const dat = {
+  // Data Testing
+  const data = {
     company: 'PT BaCod Studio',
     periode: [1, "2002-12-31"],
-    data: [ // Data Test
+    data: [
       ['Tanah (land)', 2, 28000000],
       ['Kas (cash)', 0, 19500000],
       ['Persediaan barang dagang (merchandise inventory)', 0, 22250000],
@@ -43,10 +45,12 @@ $(function () {
     ]
   };
 
+  // Format Uang Rupiah
   function duit(a) {
     return 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
   }
 
+  // Urutkan Data Sesuai Jenisnya
   function sort(a, b) {
     let x = [];
 
@@ -62,6 +66,7 @@ $(function () {
     return x;
   }
 
+  // Jumlahkan Uang di Masing-masing Jenis
   function math(a, b, c) {
     let x = 0;
 
@@ -72,7 +77,8 @@ $(function () {
     return x;
   }
 
-  function tbls(a, b) {
+  // Urutkan Data untuk dijadikan Tabel
+  function siap(a, b) {
     const c = sort(a, b);
 
     let m, n, o;
@@ -138,7 +144,8 @@ $(function () {
     return x;
   }
 
-  function dateFormat(a) {
+  // Tanggal, Bulan, Tahun sesuai format Indonesia
+  function date(a) {
     let x = '';
     if (a) {
       const d = new Date(a);
@@ -158,12 +165,12 @@ $(function () {
   }
 
   function result() {
-    const a = dat.data;
-    const b = con.type;
-    const c = tbls(a, b)
+    const a = data.data;
+    const b = config.type;
+    const c = siap(a, b)
 
-    const com = dat.company;
-    const per = con.periode[dat.periode[0]] + ' ' + dateFormat(dat.periode[1]);
+    const com = data.company;
+    const per = config.periode[data.periode[0]] + ' ' + date(data.periode[1]);
 
     let x;
 
@@ -236,7 +243,7 @@ $(function () {
   }
 
   function element() {
-    const typ = con.type;
+    const typ = config.type;
 
     const x = `
     <tr class="inputForm">
@@ -255,8 +262,8 @@ $(function () {
   }
 
   function start() {
-    const com = dat.company;
-    const per = con.periode;
+    const com = data.company;
+    const per = config.periode;
 
     const x = `
       <table id="quest" class="border center">
@@ -296,6 +303,7 @@ $(function () {
           </tr>
         </tbody>
       </table>
+      ${result()}
       <p align="center" class="fs-12">
         Version: 0.01<br>
         Kalkulator Akuntansi<br>
@@ -304,16 +312,12 @@ $(function () {
     return x;
   }
 
-  function addElement() {
-    const a = $('#tabForm > tr');
-    a.eq(a.length - 1).before(element());
-  }
-
   $('#root').html(start());
 
   $('#tabForm').click(function (e) {
     if ($(e.target).hasClass('addForm')) {
-      addElement();
+      const a = $('#tabForm > tr');
+      a.eq(a.length - 1).before(element());
     }
 
     if ($(e.target).hasClass('delForm')) {
@@ -321,10 +325,10 @@ $(function () {
     }
 
     if ($(e.target).hasClass('pancal')) {
-      dat.company = $('[name=company]').val();
-      dat.periode = [parseInt($('[name=periode]').val()), $('[name=date]').val()];
+      data.company = $('[name=company]').val();
+      data.periode = [parseInt($('[name=periode]').val()), $('[name=date]').val()];
 
-      dat.data = [];
+      data.data = [];
 
       $('#tabForm > .inputForm').each(function (i) {
         let a = $('[name=items]').eq(i).val();
@@ -334,10 +338,10 @@ $(function () {
         a = a ? a : 'item ' + (i + 1);
         c = c ? c : 0;
 
-        if (b) dat.data.push([a, parseInt(b), c]);
+        if (b) data.data.push([a, parseInt(b), c]);
       });
 
-      console.log(dat);
+      console.log(data);
 
       if ($('#root > #hasil')) $('#root > #hasil').remove();
       $('#root > #quest').after(result());
