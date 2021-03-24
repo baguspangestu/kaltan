@@ -14,7 +14,7 @@ $(function () {
   }
 
   const dat = {
-    company: 'PD TELUK INDAH',
+    company: 'PT BaCod Studio',
     periode: [1, "2002-12-31"],
     data: [ // Data Test
       ['Tanah (land)', 2, 28000000],
@@ -236,14 +236,16 @@ $(function () {
   }
 
   function element() {
+    const typ = con.type;
+
     const x = `
     <tr class="inputForm">
-      <td><input name="items" type="text" placeholder="Ex: Kas (cash)" required /></td>
-      <td><input name="value" type="number" placeholder="Ex: 19500000" required /></td>
+      <td><input name="items" type="text" placeholder="Items" required /></td>
+      <td><input name="value" type="number" placeholder="0" required /></td>
       <td>
         <select name="jenis" required>
           <option selected disabled>-Pilih-</option>
-          ${select(con.type)}
+          ${select(typ)}
         </select>
       </td>
       <td align="center">(<a href="javascript:void(0);" style="color:red;" class="delForm">✗</a>)</td>
@@ -253,6 +255,9 @@ $(function () {
   }
 
   function start() {
+    const com = dat.company;
+    const per = con.periode;
+
     const x = `
       <table id="quest" class="border center">
         <tbody id="tabForm">
@@ -262,15 +267,14 @@ $(function () {
           <tr class="b-top ta-left">
             <td colspan="4">
               <b>Nama Perusahaan :</b>
-              <input name="company" type="text" placeholder="Ex: PD TELUK INDAH" required />
+              <input name="company" type="text" placeholder="${com}" required />
             </td>
           </tr>
           <tr class="b-bottom ta-left">
             <td colspan="4">
               <b>Periode :</b>
               <select name="periode" required>
-                <option value="0">Per</option>
-                <option value="1">Untuk periode yang berakhir</option>
+                ${select(per)}
               </select>
               <input name="date" type="date" required />
             </td>
