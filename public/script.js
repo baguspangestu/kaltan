@@ -263,7 +263,7 @@ $(function () {
 
     const x = `
     <tr class="inputForm">
-      <td><input name="items" type="text" placeholder="Items" required /></td>
+      <td><input name="items" type="text" placeholder="Item" required /></td>
       <td><input name="value" type="number" placeholder="0" required /></td>
       <td>
         <select name="jenis" required>
