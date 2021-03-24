@@ -200,12 +200,12 @@ $(function () {
       x += '<tr class="ta-left fs-12">';
 
       // Aktiva
-      if (c[0][i][2]) {
+      if (c[0][i][2]) { // Jenis
         x += `
           <th>${c[0][i][0]}</th>
           <th></th>
           <th class="b-right">${c[0][i][2]}</th>`;
-      } else {
+      } else { // Sub
         x += `
           <td>${c[0][i][0]}</td>
           <td>${c[0][i][1]}</td>
@@ -213,12 +213,12 @@ $(function () {
       }
 
       // Utang & Modal
-      if (c[1][i][2]) {
+      if (c[1][i][2]) { // Jenis
         x += `
           <th>${c[1][i][0]}</th>
           <th></th>
           <th>${c[1][i][2]}</th>`;
-      } else {
+      } else { // Sub
         x += `
           <td>${c[1][i][0]}</td>
           <td>${c[1][i][1]}</td>
@@ -299,6 +299,7 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
+              <span class="f-right fs-12" style="color: green;"><b>[Bug]</b> Harusnya Akumulasi Penyewaan dikurang, bukan ditambah</span>
             </td>
           </tr>
         </tbody>
