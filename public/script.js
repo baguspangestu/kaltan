@@ -47,7 +47,7 @@ $(function () {
 
   // Akumulasi detector
   function akum(a) { // a = Item
-    return (a.search("Akum") >= 0) ? true : false;
+    return (a.toLowerCase().search("akum") >= 0) ? true : false;
   }
 
   // Format Uang Rupiah
