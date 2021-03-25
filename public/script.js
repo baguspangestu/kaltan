@@ -14,7 +14,7 @@ $(function () {
     ]
   }
 
-  // Data Testing
+  // Data Testing (Default)
   const data = {
     company: 'PD TELUK INDAH',
     periode: [1, "2002-12-31"],
@@ -45,8 +45,13 @@ $(function () {
     ]
   };
 
+  // Akumulasi detector
+  function akum(a) { // a = Item
+    return (a.search("Akum") >= 0) ? true : false;
+  }
+
   // Format Uang Rupiah
-  function duit(a, b) {
+  function duit(a, b) { // a = Value, b = Item
     let x = 'Rp ' + a.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + ',-';
 
     if (akum(b)) x = '(' + x + ')';
@@ -175,11 +180,6 @@ $(function () {
     return x;
   }
 
-  // Akumulasi detector
-  function akum(a) {
-    return (a.search("Akum") >= 0) ? true : false;
-  }
-
   function result() {
     const a = data.data;
     const b = config.type;
@@ -248,7 +248,7 @@ $(function () {
     return x;
   }
 
-  function select(a) {
+  function option(a) { // a = array 1D
     let x = '';
 
     for (let i = 0; i < a.length; i++) {
@@ -259,16 +259,16 @@ $(function () {
   }
 
   function element() {
-    const typ = config.type;
+    const a = option(config.type);
 
     const x = `
     <tr class="inputForm">
-      <td><input name="items" type="text" placeholder="Item" required /></td>
+      <td><input name="items" type="text" placeholder="Item 1" required /></td>
       <td><input name="value" type="number" placeholder="0" required /></td>
       <td>
         <select name="jenis" required>
           <option selected disabled>-Pilih-</option>
-          ${select(typ)}
+          ${a}
         </select>
       </td>
       <td align="center">(<a href="javascript:void(0);" style="color:red;" class="delForm">✗</a>)</td>
@@ -278,8 +278,10 @@ $(function () {
   }
 
   function start() {
-    const com = data.company;
-    const per = config.periode;
+    const a = data.company;
+    const b = option(config.periode);
+    const c = element();
+    const d = result();
 
     const x = `
       <table id="quest" class="border center">
@@ -290,14 +292,14 @@ $(function () {
           <tr class="b-top ta-left">
             <td colspan="4">
               <b>Nama Perusahaan :</b>
-              <input name="company" type="text" placeholder="${com}" required />
+              <input name="company" type="text" placeholder="${a}" required />
             </td>
           </tr>
           <tr class="b-bottom ta-left">
             <td colspan="4">
               <b>Periode :</b>
               <select name="periode" required>
-                ${select(per)}
+                ${b}
               </select>
               <input name="date" type="date" required />
             </td>
@@ -310,7 +312,7 @@ $(function () {
               <button class="addForm">+</button>
             </th>
           </tr>
-          ${element()}
+          ${c}
           <tr class="b-top">
             <td colspan="4">
               <button class="pancal">Pancal</button>
@@ -320,13 +322,19 @@ $(function () {
           </tr>
         </tbody>
       </table>
-      ${result()}
+      ${d}
       <p align="center" class="fs-12">
         Version: 0.02<br>
         Kalkulator Akuntansi<br>
         &copy; 2021 Bagus Pangestu
       </p>`;
+
     return x;
+  }
+
+  function ph() {
+    const a = $('.inputForm [name=items]');
+    for (let i = 0; i < a.length; i++) a.eq(i).attr('placeholder', 'Item ' + (i + 1));
   }
 
   $('#root').html(start());
@@ -335,10 +343,12 @@ $(function () {
     if ($(e.target).hasClass('addForm')) {
       const a = $('#tabForm > tr');
       a.eq(a.length - 1).before(element());
+      ph();
     }
 
     if ($(e.target).hasClass('delForm')) {
       $(e.target).parent().parent().remove();
+      ph();
     }
 
     if ($(e.target).hasClass('pancal')) {
