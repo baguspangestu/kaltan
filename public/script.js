@@ -16,7 +16,7 @@ $(function () {
 
   // Data Testing
   const data = {
-    company: 'PT BaCod Studio',
+    company: 'PD TELUK INDAH',
     periode: [1, "2002-12-31"],
     data: [
       ['Tanah (land)', 2, 28000000],
