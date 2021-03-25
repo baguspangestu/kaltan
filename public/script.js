@@ -11,7 +11,9 @@ $(function () {
       'Utang Jangka Pendek',
       'Utang Jangka Panjang',
       'Modal'
-    ]
+    ],
+    version: 1.21,
+    update: 'Optimalisasi Script'
   }
 
   // Data Testing (Default)
@@ -282,6 +284,8 @@ $(function () {
     const b = option(config.periode);
     const c = element();
     const d = result();
+    const e = config.version;
+    const f = config.update;
 
     const x = `
       <table id="quest" class="border center">
@@ -317,14 +321,14 @@ $(function () {
             <td colspan="4">
               <button class="pancal">Pancal</button>
               [<a href="javascript:void(0);" class="reset">Reset</a>]
-              <span class="f-right fs-12" style="color: green;"><b>[v0.02 - Bug Fixed!]</b></span>
+              <span class="f-right fs-12" style="color: green;"><b>[v${e}] ${f}</b></span>
             </td>
           </tr>
         </tbody>
       </table>
       ${d}
       <p align="center" class="fs-12">
-        Version: 0.02<br>
+        Version: ${e}<br>
         Kalkulator Akuntansi<br>
         &copy; 2021 Bagus Pangestu
       </p>`;
