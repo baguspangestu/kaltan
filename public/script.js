@@ -362,7 +362,7 @@ $(function () {
         let b = $('[name=jenis]').eq(i).val();
         let c = $('[name=value]').eq(i).val();
 
-        a = a ? a : 'item ' + (i + 1);
+        a = a ? a : 'Item ' + (i + 1);
         c = c ? c : 0;
 
         if (b) data.data.push([a, parseInt(b), c]);
