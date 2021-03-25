@@ -1,4 +1,4 @@
-$(function () {
+function root() {
 
   // Konfigurasi
   const config = {
@@ -12,8 +12,8 @@ $(function () {
       'Utang Jangka Panjang',
       'Modal'
     ],
-    version: 1.21,
-    update: 'Optimalisasi Script'
+    version: 1.22,
+    update: 'Reset Tanpa Reload Halaman'
   }
 
   // Data Testing (Default)
@@ -379,8 +379,13 @@ $(function () {
     }
 
     if ($(e.target).hasClass('reset')) {
-      location.reload();
+      //location.reload();
+      root();
     }
   });
 
+}
+
+$(function () {
+  root();
 });
